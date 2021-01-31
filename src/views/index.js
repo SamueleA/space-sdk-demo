@@ -1,2 +1,3 @@
 export { default as Album } from './Album';
-export { default as Auth } from './Auth';
+export { default as Signin } from './Signin';
+export { default as Signup } from './Signup';

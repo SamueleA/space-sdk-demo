@@ -4,7 +4,8 @@ import {
   Route,
 } from 'react-router-dom';
 import {
-  Auth,
+  Signin,
+  Signup,
   Album,
 } from './views';
 
@@ -15,8 +16,11 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/auth">
-            <Auth />
+          <Route path="/signin">
+            <Signin />
+          </Route>
+          <Route path="/signup">
+            <Signup />
           </Route>
           <Route path="/">
             <Album />
