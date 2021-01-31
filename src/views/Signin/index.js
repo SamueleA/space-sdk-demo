@@ -23,7 +23,7 @@ const Signin = () => {
         },
       });
   
-      const backupType = VaultBackupType.Email;
+      const backupType = VaultBackupType.Google;
   
       const recoveredUser = await users.recoverKeysByPassphrase(username, password, backupType);
     } catch(e) {
