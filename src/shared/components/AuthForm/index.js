@@ -1,30 +1,34 @@
 import { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
 
 const AuthForm = ({
   onSubmit,
   loading,
+  backToText,
+  backDestination,
 }) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+  const history = useHistory();
+
   const returnValues = {
-    username,
+    email,
     password,
   };
 
-  const disabled = username === '' || password === '';
+  const disabled = email === '' || password === '';
 
   return (
     <>
       <TextField
         disabled={loading}
         variant="outlined"
-        placeholder="username"
-        label="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        placeholder="email"
+        label="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <TextField
         disabled={loading}
@@ -42,6 +46,14 @@ const AuthForm = ({
         color="primary"
       >
         Submit
+      </Button>
+      <Button
+        disabled={loading}
+        variant="contained"
+        color="primary"
+        onClick={() => history.push(backDestination)}
+      >
+        {backToText}
       </Button>
     </>
   );

@@ -1,31 +1,31 @@
 import React, { useState } from 'react';
-import { BrowserStorage, Users, VaultBackupType } from '@spacehq/sdk';
+import { VaultBackupType } from '@spacehq/sdk';
+import { sdk } from '@clients';
 import AuthFom from '@shared/components/AuthForm';
-import config from '@config';
+import { useHistory } from 'react-router-dom';
 
 const Signin = () => {
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   const onSubmit = async (values) => {
     const {
-      username,
+      email,
       password,
     } = values;
 
     setLoading(true);
 
     try { 
-      const users = await Users.withStorage(new BrowserStorage(), {
-        endpoint: config.authEndpoint,
-        vaultServiceConfig: {
-          serviceUrl: config.vault.serviceUrl,
-          saltSecret: config.vault.saltSecret,
-        },
-      });
-  
+      const users = await sdk.getUsers();
+
       const backupType = VaultBackupType.Email;
   
-      const recoveredUser = await users.recoverKeysByPassphrase(username, password, backupType);
+      await users.recoverKeysByPassphrase(email, password, backupType);
+
+      window.localStorage.setItem('user', email);
+
+      history.push('/');
     } catch(e) {
       console.error('Failed to sign in', e);
     }
@@ -34,11 +34,11 @@ const Signin = () => {
 
   return (
       <div>
-        SIGNIN
         <AuthFom
           onSubmit={onSubmit}
           loading={loading}
-          setLoading={setLoading}
+          backToText="Go to Signup"
+          backDestination="/signup"
         />
       </div>
     );

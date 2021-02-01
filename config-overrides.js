@@ -4,6 +4,8 @@ module.exports = function override(config) {
   alias({
     '@shared': 'src/shared',
     '@config': 'src/config',
+    '@clients': 'src/clients',
+    '@utils': 'src/shared/utils',
   })(config)
 
   return config

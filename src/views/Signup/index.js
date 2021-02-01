@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
 import AuthForm from '@shared/components/AuthForm';
-import { BrowserStorage, Users, VaultBackupType } from '@spacehq/sdk';
-import config from '@config';
+import { VaultBackupType } from '@spacehq/sdk';
+import { sdk } from '@clients';
+import { useHistory } from 'react-router-dom';
 
 const Signup = () => {
   const [loading, setLoading] = useState(false);
+  const history = useHistory()
 
   const onSubmit = async (values) => {
     const {
-      username,
+      email,
       password,
     } = values;
 
     setLoading(true);
     try {
-      const users = await Users.withStorage(new BrowserStorage(), {
-        endpoint: config.authEndpoint,
-        vaultServiceConfig: {
-          serviceUrl: config.vault.serviceUrl,
-          saltSecret: config.vault.saltSecret,
-        },
-      });
+      const users = await sdk.getUsers();
 
       // createIdentity generate a random keypair identity
       const identity = await users.createIdentity();
@@ -31,7 +27,11 @@ const Signup = () => {
 
       const backupType = VaultBackupType.Email;
 
-      await users.backupKeysByPassphrase(username, password, backupType, user.identity);
+      await users.backupKeysByPassphrase(email, password, backupType, user.identity);
+    
+      window.localStorage.setItem('user', email);
+
+      history.push('/');
     } catch(e) {
       console.error('Failed to sign up', e);
     }
@@ -42,7 +42,10 @@ const Signup = () => {
     <div>
       <AuthForm
         onSubmit={onSubmit}
-        loading={loading} />
+        loading={loading}
+        backToText="Go to Signin"
+        backDestination="/signin"
+      />
     </div>
   );
 };
