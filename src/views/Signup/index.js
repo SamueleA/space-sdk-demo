@@ -29,7 +29,7 @@ const Signup = () => {
       // `users.authenticate()` generates hub API session tokens for the keypair identity.
       const user = await users.authenticate(identity);
 
-      const backupType = VaultBackupType.Google;
+      const backupType = VaultBackupType.Email;
 
       await users.backupKeysByPassphrase(username, password, backupType, user.identity);
     } catch(e) {
