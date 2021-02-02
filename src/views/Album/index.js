@@ -131,6 +131,7 @@ const Album = () => {
       <div className={classes.photosContainer}>
         {photos.map((photo) => (
           <Photo
+            key={photo.name}
             name={photo.name}
           />
         ))}
