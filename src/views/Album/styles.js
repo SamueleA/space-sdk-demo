@@ -49,5 +49,17 @@ export default makeStyles(() => ({
     margin: 20,
     marginTop: 50,
     display: 'flex',
-  }
+  },
+  uploadInProgressContainer: {
+    height: 50,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  uploadInProgress: {
+    color: 'white',
+    fontFamily: 'introrust',
+    fontWeight: 600,
+    fontSize: 25,
+  },
 }));

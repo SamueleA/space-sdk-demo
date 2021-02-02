@@ -9,6 +9,7 @@ import classnames from 'classnames';
 import InitScreen from './components/InitScreen';
 import Photo from './components/Photo';
 import useStyles from './styles';
+import { Typography } from '@material-ui/core';
 
 const Album = () => {
   const [init, setInit] = useState(true);
@@ -44,7 +45,7 @@ const Album = () => {
     sourcePaths,
     targetPath,
   }) => {
-    setIsUploading(false);
+    setIsUploading(true);
     const storage = await sdk.getStorage();
     window.onbeforeunload = () => false;
 
@@ -94,8 +95,6 @@ const Album = () => {
     fileInput.click();
   };
 
-  const disabledAddButton = isUploading;
-
   if (init) {
     return (
       <div className={classes.initContainer}>
@@ -112,21 +111,27 @@ const Album = () => {
         <ButtonBase
           className={classes.addButton}
           onClick={addPhoto}
-          disabled={disabledAddButton}getPhotos
+          disabled={isUploading}
         >
           <img
             className={classnames(classes.addButtonImg, {
-              [classes.addButtonImgDisabled]: disabledAddButton,
+              [classes.addButtonImgDisabled]: isUploading,
             })}
             src={button}
           />
         </ButtonBase>
+        <div className={classes.uploadInProgressContainer}>
+          {isUploading && (
+            <Typography className={classes.uploadInProgress}>
+              Upload in progress...
+            </Typography>
+          )}
+        </div>
       </div>
       <div className={classes.photosContainer}>
         {photos.map((photo) => (
           <Photo
             name={photo.name}
-            isUploading={photo.isUploading}
           />
         ))}
       </div>

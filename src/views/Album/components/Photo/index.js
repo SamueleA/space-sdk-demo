@@ -7,7 +7,6 @@ import useStyles from './styles';
 
 const Photo = ({
   name,
-  isUploading,
 }) => {
   const [loading, setLoading] = useState(true);
   const [url, setUrl] = useState(null);
@@ -33,10 +32,8 @@ const Photo = ({
   };
 
   useEffect(() => {
-    if (!isUploading) {
-      getPhotoUrl();
-    }
-  }, [isUploading]);
+    getPhotoUrl();
+  }, []);
 
   return (
     <div className={classes.container}>
