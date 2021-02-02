@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { fromString } from 'uuidv4';
 import { VaultBackupType } from '@spacehq/sdk';
-import { sdk } from '@clients';
+import { sdk, apiClient } from '@clients';
 import AuthFom from '@shared/components/AuthForm';
 import { useHistory } from 'react-router-dom';
-import useStyles from './styles';
 import logo from '@assets/logo.svg';
+import Web3 from 'web3';
+
+import useStyles from './styles';
 
 const Signin = () => {
   const [loading, setLoading] = useState(false);
@@ -21,15 +22,24 @@ const Signin = () => {
     setLoading(true);
 
     try { 
+      const web3 = new Web3();
+      
+      const entropy = web3.utils.sha3(`${email}${password}`).substring(0, 32);
+
+      const keypair = web3.eth.accounts.create(entropy);
+
       const users = await sdk.getUsers();
 
       const backupType = VaultBackupType.Email;
   
-      const uuid = fromString(email);
+      const { data } = await apiClient.identities.getByAddress({
+        token: '',
+        addresses: [keypair.address],
+      });
 
-      await users.recoverKeysByPassphrase(uuid, password, backupType);
+      await users.recoverKeysByPassphrase(data.data.uuid, keypair.privateKey, backupType);
 
-      window.localStorage.setItem('user', uuid);
+      window.localStorage.setItem('user', email);
 
       history.push('/');
     } catch(e) {

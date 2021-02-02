@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { fromString } from 'uuidv4';
 import AuthForm from '@shared/components/AuthForm';
 import { VaultBackupType } from '@spacehq/sdk';
-import { sdk } from '@clients';
+import { sdk, apiClient } from '@clients';
 import { useHistory } from 'react-router-dom';
 import logo from '@assets/logo.svg';
+import Web3 from 'web3';
 import useStyles from './styles';
 
 const Signup = () => {
@@ -20,6 +20,12 @@ const Signup = () => {
 
     setLoading(true);
     try {
+      const web3 = new Web3();
+      
+      const entropy = web3.utils.sha3(`${email}${password}`).substring(0, 32);
+
+      const keypair = web3.eth.accounts.create(entropy);
+
       const users = await sdk.getUsers();
 
       // createIdentity generate a random keypair identity
@@ -27,13 +33,28 @@ const Signup = () => {
 
       // the new keypair can be used to authenticate a new user
       // `users.authenticate()` generates hub API session tokens for the keypair identity.
-      await users.authenticate(identity);
+      const spaceUser = await users.authenticate(identity);
 
       const backupType = VaultBackupType.Email;
 
-      const uuid = fromString(email);
+      const { data } = await apiClient.identity.update({
+        token: spaceUser.token,
+        email: email,
+        displayName: keypair.address,
+        metadata: {
+          name: keypair.address,
+          email,
+          nickname: keypair.address,
+        },
+      });
 
-      await users.backupKeysByPassphrase(uuid, password, backupType, identity);
+      await users.backupKeysByPassphrase(data.data.uuid, keypair.privateKey, backupType, identity);
+
+      await apiClient.identity.addEthAddress({
+        provider: backupType,
+        token: spaceUser.token,
+        address: keypair.address,
+      });
     
       window.localStorage.setItem('user', email);
 
