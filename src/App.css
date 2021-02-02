@@ -1,4 +1,10 @@
-.App {
+body {
   background-color: #3a71c9;
-  height: 100vh;
+}
+
+@font-face {
+  font-family: 'introrust';
+  src: url('./fonts/IntroHeadR-Base.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }

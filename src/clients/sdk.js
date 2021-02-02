@@ -13,6 +13,7 @@ function Sdk() {
   let users = null;
 
   const init = async () => {
+    console.log('init..');
     users = await Users.withStorage(new BrowserStorage(), {
       endpoint: config.authEndpoint,
       vaultServiceConfig: {
@@ -25,7 +26,7 @@ function Sdk() {
       // eslint-disable-next-line no-console
       console.log('identity', identity);
     });
-
+    console.log('got user');
     this.isStarting = false;
 
     if (cbs[EVENTS.ready] && cbs[EVENTS.ready].length > 0) {
@@ -50,6 +51,7 @@ function Sdk() {
    * @returns {UserStorage?}
    */
   this.getStorage = async () => {
+    console.log('get storage');
     if (!users) {
       await init();
     }

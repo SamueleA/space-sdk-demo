@@ -3,15 +3,26 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
   container: {
-    width: 200,
-    backgroundColor: 'white',
+    margin: 20,
   },
   imageContainer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    width: 300,
+    height: 300,
   },
   photo: {
-    width: '100%',
+    width: 300,
+    userDrag: 'none',
+    borderRadius: 5,
+  },
+  title: {
+    color: 'white',
+    fontFamily: 'introrust',
+    fontWeight: 600,
+    fontSize: 25,
+    marginBottom: 10,
+    textAlign: 'center',
   },
 }));

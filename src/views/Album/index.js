@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import { sdk } from '@clients';
+import logo from '@assets/logo.svg';
+import button from '@assets/button.svg';
+import classnames from 'classnames';
 
 import InitScreen from './components/InitScreen';
 import Photo from './components/Photo';
@@ -17,7 +20,7 @@ const Album = () => {
   const getPhotos = async () => {
     setInit(true);
     const storage = await sdk.getStorage();
-    const { items } = await storage.listDirectory({
+    const { items = [] } = await storage.listDirectory({
       path: '/',
       bucket: 'personal',
       recursive: false,
@@ -28,11 +31,11 @@ const Album = () => {
 
 
   useEffect(() => {
-    // todo change to !user.info
     const user = localStorage.getItem('user');
 
     if (!user) {
       history.push('/signup');
+      return;
     }
     getPhotos();
   }, []);
@@ -41,9 +44,10 @@ const Album = () => {
     sourcePaths,
     targetPath,
   }) => {
-    setIsUploading(true);
+    setIsUploading(false);
     const storage = await sdk.getStorage();
     window.onbeforeunload = () => false;
+
     const uploadResponse = await storage.addItems({
       bucket: 'personal',
       files: sourcePaths.map(({ data, path, mimeType }) => ({
@@ -60,7 +64,9 @@ const Album = () => {
         bucket: 'personal',
         recursive: false,
       });
+      
       setPhotos(items);
+
       setIsUploading(false);
     });
   };
@@ -88,6 +94,8 @@ const Album = () => {
     fileInput.click();
   };
 
+  const disabledAddButton = isUploading;
+
   if (init) {
     return (
       <div className={classes.initContainer}>
@@ -96,21 +104,32 @@ const Album = () => {
     );
   }
 
+
   return (
-    <div>
-      <Button
-        onClick={addPhoto}
-        variant="contained"
-        color="primary"
-        disabled={isUploading}
-      >
-        Add Photo
-      </Button>
-      {photos.map((photo) => (
-        <Photo
-          name={photo.name}
-        />
-      ))}
+    <div className={classes.container}>
+      <div className={classes.headerContainer}>
+        <img src={logo} className={classes.logo} />
+        <ButtonBase
+          className={classes.addButton}
+          onClick={addPhoto}
+          disabled={disabledAddButton}getPhotos
+        >
+          <img
+            className={classnames(classes.addButtonImg, {
+              [classes.addButtonImgDisabled]: disabledAddButton,
+            })}
+            src={button}
+          />
+        </ButtonBase>
+      </div>
+      <div className={classes.photosContainer}>
+        {photos.map((photo) => (
+          <Photo
+            name={photo.name}
+            isUploading={photo.isUploading}
+          />
+        ))}
+      </div>
     </div>
   );
 };

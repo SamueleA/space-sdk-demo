@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { sdk } from '@clients';
 import typedArrayToUrl from '@utils/typed-array-to-url';
+import photoLoading from '@assets/photo-loading.svg';
 import useStyles from './styles';
 
 const Photo = ({
   name,
+  isUploading,
 }) => {
   const [loading, setLoading] = useState(true);
   const [url, setUrl] = useState(null);
@@ -31,15 +33,17 @@ const Photo = ({
   };
 
   useEffect(() => {
-    getPhotoUrl();
-  }, []);
+    if (!isUploading) {
+      getPhotoUrl();
+    }
+  }, [isUploading]);
 
   return (
     <div className={classes.container}>
       <Typography className={classes.title}>{name}</Typography>
       <div className={classes.imageContainer}>
         {loading ? (
-          <span>Loading...</span>
+          <img src={photoLoading} className={classes.photo} />
         ) : (
           <img src={url} alt={name} className={classes.photo} />
         )}
