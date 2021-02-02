@@ -2,14 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { sdk } from '@clients';
+
+import InitScreen from './components/InitScreen';
 import Photo from './components/Photo';
+import useStyles from './styles';
 
 const Album = () => {
+  const [init, setInit] = useState(true);
   const history = useHistory();
   const [photos, setPhotos] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
+  const classes = useStyles();
 
   const getPhotos = async () => {
+    setInit(true);
     const storage = await sdk.getStorage();
     const { items } = await storage.listDirectory({
       path: '/',
@@ -17,6 +23,7 @@ const Album = () => {
       recursive: false,
     });
     setPhotos(items);
+    setInit(false);
   };
 
 
@@ -80,6 +87,14 @@ const Album = () => {
     fileInput.type = 'file';
     fileInput.click();
   };
+
+  if (init) {
+    return (
+      <div className={classes.initContainer}>
+        <InitScreen />
+      </div>
+    );
+  }
 
   return (
     <div>

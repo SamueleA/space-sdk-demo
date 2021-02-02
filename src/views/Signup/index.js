@@ -3,10 +3,13 @@ import AuthForm from '@shared/components/AuthForm';
 import { VaultBackupType } from '@spacehq/sdk';
 import { sdk } from '@clients';
 import { useHistory } from 'react-router-dom';
+import logo from '@assets/logo.svg';
+import useStyles from './styles';
 
 const Signup = () => {
   const [loading, setLoading] = useState(false);
   const history = useHistory()
+  const classes = useStyles();
 
   const onSubmit = async (values) => {
     const {
@@ -39,12 +42,14 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <div className={classes.container}>
+      <img src={logo} alt="logo" className={classes.logo} />
       <AuthForm
         onSubmit={onSubmit}
         loading={loading}
-        backToText="Go to Signin"
+        backToText="Go to Sign in"
         backDestination="/signin"
+        title="Create new account"
       />
     </div>
   );

@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { sdk } from '@clients';
 import typedArrayToUrl from '@utils/typed-array-to-url';
+import useStyles from './styles';
 
 const Photo = ({
   name,
 }) => {
   const [loading, setLoading] = useState(true);
   const [url, setUrl] = useState(null);
+  const classes = useStyles();
 
   const getPhotoUrl = async () => {
     setLoading(true);
@@ -33,13 +35,15 @@ const Photo = ({
   }, []);
 
   return (
-    <div>
-      <Typography>{name}</Typography>
-      {loading ? (
-        <span>Loading...</span>
-      ) : (
-        <img src={url} alt={name} />
-      )}
+    <div className={classes.container}>
+      <Typography className={classes.title}>{name}</Typography>
+      <div className={classes.imageContainer}>
+        {loading ? (
+          <span>Loading...</span>
+        ) : (
+          <img src={url} alt={name} className={classes.photo} />
+        )}
+      </div>
     </div>
   );
 };
