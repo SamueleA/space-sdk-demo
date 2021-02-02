@@ -32,7 +32,7 @@ const Album = () => {
     const user = localStorage.getItem('user');
 
     if (!user) {
-      history.push('/signin');
+      history.push('/signup');
     }
     getPhotos();
   }, []);
