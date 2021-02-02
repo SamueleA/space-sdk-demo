@@ -1576,21 +1576,21 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@spacehq/sdk@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@spacehq/sdk/-/sdk-0.0.9.tgz#da54fccc8ecde649b6650f75886019df298c4cde"
-  integrity sha512-4QRlVZrBRv85jvpEc8+DQX5btwH8Wbe3q6hja8ibT+tF+pvOzKXBQKufz+Yfs4HNgJzRySXax/5dmkQ0c63VQQ==
+"@spacehq/sdk@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@spacehq/sdk/-/sdk-0.0.10.tgz#3b8aad5949674132c0fefdada285f6e43e546494"
+  integrity sha512-VpQksUPLVlvDgR1WiElTSoFML7bHtVwRmggVImsFdsUyDcOMLVZN1BuXtbgnhL+cpQOkteGeQ4UgGs6eBdNxtQ==
   dependencies:
-    "@spacehq/storage" "^0.0.9"
-    "@spacehq/users" "^0.0.9"
+    "@spacehq/storage" "^0.0.10"
+    "@spacehq/users" "^0.0.10"
 
-"@spacehq/storage@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@spacehq/storage/-/storage-0.0.9.tgz#f79ea816d4dc546fcd121fd8e7145d958f9ae620"
-  integrity sha512-qI0WId6JnF5A2JVmL7TIDbSkyv5Jl3u7mT3eRXqLF0q+3VGfY9gn1LSxcFOINVMW+vNJEcSH3p+KBIJRBJjnUg==
+"@spacehq/storage@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@spacehq/storage/-/storage-0.0.10.tgz#6af08589c064b372d77d65f184fb7b1ed12a6fc0"
+  integrity sha512-ro7LI8piMxePVWkhKEAYJUZnkHuHyA1P+qDZErJVReyREWdIlVxMEPKpHFAohI+ANVGIP3to+Z4BYzvSQbVrfw==
   dependencies:
     "@improbable-eng/grpc-web" "^0.13.0"
-    "@spacehq/users" "^0.0.9"
+    "@spacehq/users" "^0.0.10"
     "@textile/crypto" "^2.0.0"
     "@textile/hub" "^4.1.0"
     "@textile/threads-id" "^0.4.0"
@@ -1605,10 +1605,10 @@
     uuid "^8.3.2"
     varint "^6.0.0"
 
-"@spacehq/users@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@spacehq/users/-/users-0.0.9.tgz#59ad817e40a3f0a65096bf1915c8795e07fcfbe8"
-  integrity sha512-6yuwisIhbRw/iUrSDmIGfePPih3JNVen71cltrKjTs5GF5EW0ZD7JeObwgzIX+Dgg8Crs+Yzz2tew1fHLW8TLw==
+"@spacehq/users@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@spacehq/users/-/users-0.0.10.tgz#c516af2b8c647514ba9428262ddab5a95c943614"
+  integrity sha512-5ve7bdt8LR6XBb6E2/TNNlCVvuZu2xzirKe2LsFOOTRXMpoegLvcG9HZk9Nh6iLnFeuLs38Q7Nxfh81wjwdRbg==
   dependencies:
     "@textile/crypto" "^2.0.0"
     "@types/lodash" "^4.14.165"
@@ -2369,6 +2369,11 @@
   integrity sha512-7npvPKV+jINLu1SpSYVWG8KvyJBhBa8tmzMMdDoVc2pWUYHN8KIXlPJhjJ4LT97c4dXJA2SHL/q6ADbDriZN+Q==
   dependencies:
     source-map "^0.6.1"
+
+"@types/uuid@8.3.0":
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
+  integrity sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
 
 "@types/webpack-sources@*":
   version "2.1.0"
@@ -12080,15 +12085,23 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
+uuid@8.3.2, uuid@^8.3.0, uuid@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+
 uuid@^3.3.2, uuid@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-uuid@^8.3.0, uuid@^8.3.2:
-  version "8.3.2"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
-  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+uuidv4@^6.2.6:
+  version "6.2.6"
+  resolved "https://registry.yarnpkg.com/uuidv4/-/uuidv4-6.2.6.tgz#c37c764b578114b60bdd5460e5578d7d99383ad1"
+  integrity sha512-vFyL4jugB/ln1ux1gXLlBMBv424Dn86EaBMoqUH1K6XI3XuriaWLeRUzH4iWwPu+BOJiw4hc4TjvrPmk+H+ZBQ==
+  dependencies:
+    "@types/uuid" "8.3.0"
+    uuid "8.3.2"
 
 v8-compile-cache@^2.0.3:
   version "2.2.0"

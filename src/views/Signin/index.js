@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { fromString } from 'uuidv4';
 import { VaultBackupType } from '@spacehq/sdk';
 import { sdk } from '@clients';
 import AuthFom from '@shared/components/AuthForm';
@@ -24,9 +25,11 @@ const Signin = () => {
 
       const backupType = VaultBackupType.Email;
   
-      await users.recoverKeysByPassphrase(email, password, backupType);
+      const uuid = fromString(email);
 
-      window.localStorage.setItem('user', email);
+      await users.recoverKeysByPassphrase(uuid, password, backupType);
+
+      window.localStorage.setItem('user', uuid);
 
       history.push('/');
     } catch(e) {

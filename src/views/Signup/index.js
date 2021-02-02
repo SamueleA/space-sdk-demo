@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { fromString } from 'uuidv4';
 import AuthForm from '@shared/components/AuthForm';
 import { VaultBackupType } from '@spacehq/sdk';
 import { sdk } from '@clients';
@@ -26,11 +27,13 @@ const Signup = () => {
 
       // the new keypair can be used to authenticate a new user
       // `users.authenticate()` generates hub API session tokens for the keypair identity.
-      const user = await users.authenticate(identity);
+      await users.authenticate(identity);
 
       const backupType = VaultBackupType.Email;
 
-      await users.backupKeysByPassphrase(email, password, backupType, user.identity);
+      const uuid = fromString(email);
+
+      await users.backupKeysByPassphrase(uuid, password, backupType, identity);
     
       window.localStorage.setItem('user', email);
 
