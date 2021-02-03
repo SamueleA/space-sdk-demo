@@ -24,9 +24,9 @@ const Signin = () => {
     try { 
       const web3 = new Web3();
       
-      const entropy = web3.utils.sha3(`${email}${password}`).substring(0, 32);
+      const hash = web3.utils.sha3(`${email}${password}`);
 
-      const keypair = web3.eth.accounts.create(entropy);
+      const keypair = web3.eth.accounts.privateKeyToAccount(hash);
 
       const users = await sdk.getUsers();
 

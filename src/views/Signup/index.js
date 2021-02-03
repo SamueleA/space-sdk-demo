@@ -22,10 +22,10 @@ const Signup = () => {
     try {
       const web3 = new Web3();
       
-      const entropy = web3.utils.sha3(`${email}${password}`).substring(0, 32);
+      const hash = web3.utils.sha3(`${email}${password}`);
 
-      const keypair = web3.eth.accounts.create(entropy);
-
+      const keypair = web3.eth.accounts.privateKeyToAccount(hash);
+      
       const users = await sdk.getUsers();
 
       // createIdentity generate a random keypair identity
@@ -39,13 +39,8 @@ const Signup = () => {
 
       const { data } = await apiClient.identity.update({
         token: spaceUser.token,
-        email: email,
+        email,
         displayName: keypair.address,
-        metadata: {
-          name: keypair.address,
-          email,
-          nickname: keypair.address,
-        },
       });
 
       await users.backupKeysByPassphrase(data.data.uuid, keypair.privateKey, backupType, identity);
