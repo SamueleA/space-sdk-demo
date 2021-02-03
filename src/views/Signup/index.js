@@ -5,6 +5,8 @@ import { sdk, apiClient } from '@clients';
 import { useHistory } from 'react-router-dom';
 import logo from '@assets/logo.svg';
 import Web3 from 'web3';
+import { SALT } from '@shared/constants';
+
 import useStyles from './styles';
 
 const Signup = () => {
@@ -22,7 +24,7 @@ const Signup = () => {
     try {
       const web3 = new Web3();
       
-      const hash = web3.utils.sha3(`${email}${password}`);
+      const hash = web3.utils.sha3(`${email}${password}${SALT}`);
 
       const keypair = web3.eth.accounts.privateKeyToAccount(hash);
       
