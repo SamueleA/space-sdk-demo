@@ -58,6 +58,7 @@ function Sdk() {
 
     const usersList = users.list();
     if (usersList.length > 0) {
+      console.log('user', usersList[0]);
       return new UserStorage(usersList[0], {
         textileHubAddress: config.textileHubAddress,
       });
