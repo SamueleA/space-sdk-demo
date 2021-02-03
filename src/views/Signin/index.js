@@ -6,6 +6,7 @@ import { SALT } from '@shared/constants';
 import { useHistory } from 'react-router-dom';
 import logo from '@assets/logo.svg';
 import Web3 from 'web3';
+import classnames from 'classnames';
 
 import useStyles from './styles';
 
@@ -51,7 +52,16 @@ const Signin = () => {
 
   return (
       <div className={classes.container}>
-        <img src={logo} alt="logo" className={classes.logo} />
+        <img
+          src={logo}
+          alt="logo"
+          className={classnames(
+            classes.logo,
+            {
+              [classes.pulse]: loading,
+            }
+          )}
+        />
         <AuthFom
           onSubmit={onSubmit}
           loading={loading}
