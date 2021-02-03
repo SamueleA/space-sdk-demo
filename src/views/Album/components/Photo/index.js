@@ -3,6 +3,8 @@ import Typography from '@material-ui/core/Typography';
 import { sdk } from '@clients';
 import typedArrayToUrl from '@utils/typed-array-to-url';
 import photoLoading from '@assets/photo-loading.svg';
+import classnames from 'classnames';
+
 import useStyles from './styles';
 
 const Photo = ({
@@ -38,7 +40,11 @@ const Photo = ({
   return (
     <div className={classes.container}>
       <Typography className={classes.title}>{name}</Typography>
-      <div className={classes.imageContainer}>
+      <div
+        className={classnames(
+          classes.imageContainer, { [classes.background]: !loading }
+        )}
+      >
         {loading ? (
           <img src={photoLoading} className={classes.photo} />
         ) : (

@@ -25,4 +25,8 @@ export default makeStyles(() => ({
     marginBottom: 10,
     textAlign: 'center',
   },
+  background: {
+    backgroundColor: '#002068',
+    borderRadius: 5,
+  },
 }));
