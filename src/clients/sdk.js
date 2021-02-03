@@ -77,8 +77,6 @@ function Sdk() {
       cbs[event] = cbs[event].filter((_cb) => _cb !== cb);
     };
   };
-
-  init();
 }
 
 const sdk = new Sdk();
